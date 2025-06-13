@@ -21,6 +21,13 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+
+            // --- KOLOM BARU DITAMBAHKAN DI SINI ---
+            // Kolom untuk menyimpan path ke foto profil pengguna.
+            // Dibuat nullable karena foto profil bersifat opsional.
+            $table->string('profile_photo_path', 2048)->nullable();
+            // -----------------------------------------
+
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IdentificationController;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,15 +18,22 @@ use App\Http\Controllers\userController;
 
 
 Route::get('/', function () {
-    return redirect('/users/register');
+    return redirect('/register');
 });
 
 
 
-Route::get('/users/register',[userController::class,'viewPageRegister'])->name('viewRegisterPage');
+// Rute untuk menampilkan form registrasi
+Route::get('/register', [userController::class, 'viewPageRegister'])->name('register');
+// Rute untuk memproses data registrasi
+Route::post('/register', [userController::class, 'sendUserData']);
 
+// --- RUTE BARU UNTUK VERIFIKASI ---
+// Rute untuk halaman pemberitahuan "Cek email Anda"
+Route::get('/email/verify', [VerificationController::class, 'notice'])->name('verification.notice');
 
-
+// Rute untuk menangani link verifikasi dari email
+Route::get('/verify/{token}', [VerificationController::class, 'verify'])->name('verification.verify');
 
 
 

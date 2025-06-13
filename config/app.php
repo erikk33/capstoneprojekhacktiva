@@ -17,7 +17,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-
+    'fontMain' => env('MAIN_FONT'),
     /*
     |--------------------------------------------------------------------------
     | Application Environment
