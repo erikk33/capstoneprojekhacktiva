@@ -26,7 +26,8 @@ class userController extends Controller
             'birth' => 'required|date',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
-            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
+            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'terms' => 'accepted'
         ]);
 
         // Siapkan data untuk dimasukkan ke database

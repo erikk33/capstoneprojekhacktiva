@@ -1,9 +1,41 @@
 /* ================================================= */
+/* ============= WELCOME HEADER (RESPONSIVE) ============= */
+/* ================================================= */
+.register-wrapper {
+    width: 100%;
+    max-width: 1000px; /* Sesuaikan dengan max-width kartu */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.welcome-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem; /* Jarak ikon dan teks untuk mobile */
+    margin-bottom: 1.5rem; /* Margin bawah untuk mobile */
+    color: #343a40;
+}
+
+/* Ukuran default (mobile) lebih kecil */
+.welcome-header .icon-img {
+    width: 35px;
+    height: auto;
+}
+
+.welcome-header .text {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+
+/* ================================================= */
 /* ============= STYLING UTAMA ============== */
 /* ================================================= */
 .register-card {
     width: 100%;
-    max-width: 1000px;
     background: #fff;
     border-radius: 20px;
     box-shadow: 0 8px 30px rgba(0,0,0,0.1);
@@ -22,7 +54,8 @@
 .register-title {
     font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
 }
 .register-input-group {
     position: relative;
@@ -31,7 +64,6 @@
 .register-input-group .form-control {
     height: 50px;
     padding-left: 45px;
-    /* Memberi ruang untuk ikon mata di sebelah kanan */
     padding-right: 45px;
     border-radius: 10px;
 }
@@ -61,7 +93,7 @@
 }
 
 /* ================================================= */
-/* ===== STYLING SHOW/HIDE PASSWORD (BARU) ===== */
+/* ===== STYLING SHOW/HIDE PASSWORD ===== */
 /* ================================================= */
 .password-toggle-icon {
     position: absolute;
@@ -77,13 +109,12 @@
     color: #6c757d;
 }
 .password-toggle-icon.toggled {
-    /* Animasi saat ikon berubah */
     transform: translateY(-50%) rotate(180deg) scale(0.9);
 }
 
 
 /* ================================================= */
-/* ===== STYLING FITUR KARTU FLIP (DIPERTAHANKAN) ===== */
+/* ===== STYLING FITUR KARTU FLIP ===== */
 /* ================================================= */
 .register-flip-card {
     background-color: transparent;
@@ -131,12 +162,20 @@
 }
 
 /* ================================================= */
-/* ===== STYLING FITUR PREVIEW (DIPERTAHANKAN) ===== */
+/* ===== STYLING FITUR PREVIEW ===== */
 /* ================================================= */
 .profile-preview-container {
-    display: none;
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
     text-align: center;
     margin-bottom: 1rem;
+    transition: opacity 0.3s, height 0.3s;
+}
+.profile-preview-container.visible {
+    visibility: visible;
+    opacity: 1;
+    height: 128px;
 }
 .profile-preview-image {
     width: 120px;
@@ -190,7 +229,7 @@
 }
 
 /* ================================================= */
-/* ======== STYLING ANIMASI LOADING (DIPERTAHANKAN) ========= */
+/* ======== STYLING ANIMASI LOADING ========= */
 /* ================================================= */
 .register-btn .button-text {
     position: relative; z-index: 2;
@@ -210,12 +249,10 @@
 }
 .dot-loader .dot:nth-child(1) { animation-delay: -0.32s; }
 .dot-loader .dot:nth-child(2) { animation-delay: -0.16s; }
-
 @keyframes dot-pulse {
     0%, 80%, 100% { transform: scale(0); }
     40% { transform: scale(1.0); }
 }
-
 .register-btn::before {
     content: ''; position: absolute; top: 0; left: 0;
     width: 0; height: 100%; background-color: rgba(255, 255, 255, 0.25);
@@ -225,6 +262,23 @@
 .register-btn.loading::before {
     width: 100%;
 }
+
+/* ================================================= */
+/* =========== STYLING TERMS ============== */
+/* ================================================= */
+.register-terms-group {
+    font-size: 0.9rem;
+}
+.register-terms-group a {
+    color: #28a745;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.modal-body-scrollable {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
 
 /* ================================================= */
 /* ===== MEDIA QUERIES UNTUK DESKTOP ===== */
@@ -244,4 +298,231 @@
         width: 75vh;
         height: 75vh;
     }
+    /* PERUBAHAN: Ukuran Welcome Header untuk desktop */
+    .welcome-header .icon-img {
+        width: 50px;
+    }
+    .welcome-header .text {
+        font-size: 2.5rem;
+    }
 }
+
+
+    /*night mode feature*/
+    /* ================================================= */
+/* ============== DARK MODE THEME (BARU) =========== */
+/* ================================================= */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+body.dark-mode .register-card {
+    background: #1e1e1e;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+}
+body.dark-mode .register-title {
+    color: #ffffff;
+}
+body.dark-mode .form-control {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border-color: #444;
+}
+body.dark-mode .form-control::placeholder {
+    color: #888;
+}
+body.dark-mode .form-label,
+body.dark-mode .form-check-label,
+body.dark-mode p {
+    color: #b0b0b0;
+}
+body.dark-mode .register-link {
+    color: #34c759; /* Warna hijau lebih terang */
+}
+body.dark-mode .register-flip-card-front {
+    background-color: #2a2a2a;
+}
+body.dark-mode .register-flip-card-front svg path {
+    stroke: #e0e0e0;
+}
+body.dark-mode .night-mode-toggle {
+    background-color: #2a2a2a;
+}
+body.dark-mode .night-mode-toggle i {
+    color: #ffc107; /* Warna kuning untuk matahari */
+}
+
+/*-=========================*/
+/*STYLE HALAMAN LOGIN */
+
+/* ================================================= */
+/* ============= WELCOME HEADER ============== */
+/* ================================================= */
+.auth-wrapper { /* Diubah dari .register-wrapper menjadi lebih umum */
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.welcome-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    color: #343a40;
+    transition: color 0.4s;
+}
+.welcome-header .icon-img {
+    width: 35px;
+    height: auto;
+}
+.welcome-header .text {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* ================================================= */
+/* ============= STYLING UTAMA ============== */
+/* ================================================= */
+.auth-card { /* Diubah dari .register-card menjadi lebih umum */
+    width: 100%;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+    border: none;
+    transition: background-color 0.4s, color 0.4s;
+}
+.auth-form-section { /* Diubah dari .register-form-section */
+    padding: 2rem;
+}
+.auth-image-section { /* Diubah dari .register-image-section */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+.auth-title { /* Diubah dari .register-title */
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #343a40;
+    transition: color 0.4s;
+}
+.auth-input-group { /* Diubah dari .register-input-group */
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+.auth-input-group .form-control {
+    height: 50px;
+    padding-left: 45px;
+    padding-right: 45px;
+    border-radius: 10px;
+    transition: background-color 0.4s, color 0.4s, border-color 0.4s;
+}
+.auth-input-group .input-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #adb5bd;
+    z-index: 3;
+}
+.auth-btn { /* Diubah dari .register-btn */
+    height: 50px;
+    border-radius: 10px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.3s, background-color 0.3s;
+}
+.auth-link { /* Diubah dari .register-link */
+    color: #28a745;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* ... (Semua style lain seperti password-toggle, flip-card, preview, loading, dll. tetap sama) ... */
+.password-toggle-icon { position: absolute; top: 50%; right: 15px; transform: translateY(-50%); color: #adb5bd; cursor: pointer; z-index: 3; transition: color 0.2s, transform 0.2s; }
+.password-toggle-icon:hover { color: #6c757d; }
+.password-toggle-icon.toggled { transform: translateY(-50%) rotate(180deg) scale(0.9); }
+.auth-flip-card { background-color: transparent; width: 250px; height: 250px; perspective: 1000px; cursor: pointer; }
+.auth-flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s; transform-style: preserve-3d; }
+.auth-flip-card.flipped .auth-flip-card-inner { transform: rotateY(180deg); }
+.auth-flip-card-front, .auth-flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; border-radius: 20px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: background-color 0.4s;}
+.auth-flip-card-front { background-color: #ffffff; }
+.auth-flip-card-back { transform: rotateY(180deg); background-image: url('https://plus.unsplash.com/premium_photo-1683288295814-84a199da83d9?q=80&w=800&auto=format&fit=crop'); background-size: cover; background-position: center; }
+.auth-flip-card-front svg { width: 100%; height: auto; }
+.auth-btn .button-text { position: relative; z-index: 2; }
+.auth-btn .dot-loader { display: none; position: relative; z-index: 2; }
+.auth-btn.loading .button-text { display: none; }
+.auth-btn.loading .dot-loader { display: flex; align-items: center; }
+.dot-loader .dot { width: 8px; height: 8px; border-radius: 50%; background-color: #fff; margin: 0 4px; animation: dot-pulse 1.4s infinite ease-in-out both; }
+.dot-loader .dot:nth-child(1) { animation-delay: -0.32s; }
+.dot-loader .dot:nth-child(2) { animation-delay: -0.16s; }
+@keyframes dot-pulse { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
+.auth-btn::before { content: ''; position: absolute; top: 0; left: 0; width: 0; height: 100%; background-color: rgba(255, 255, 255, 0.25); transition: width 2.5s cubic-bezier(0.25, 1, 0.5, 1); z-index: 1; }
+.auth-btn.loading::before { width: 100%; }
+
+/* ================================================= */
+/* =========== STYLING LOGIN OPTIONS (BARU) ============ */
+/* ================================================= */
+.login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+.login-options .form-check-label {
+    user-select: none; /* Agar teks tidak ter-highlight saat di-klik */
+}
+.login-options .forgot-password-link {
+    color: #6c757d;
+    text-decoration: none;
+}
+.login-options .forgot-password-link:hover {
+    color: #28a745;
+}
+
+
+/* ================================================= */
+/* ===== MEDIA QUERIES UNTUK DESKTOP ===== */
+/* ================================================= */
+@media (min-width: 992px) {
+    .auth-form-section { padding: 3rem; }
+    .auth-title { font-size: 2.5rem; }
+    .auth-flip-card { width: 300px; height: 300px; }
+    .welcome-header .icon-img { width: 50px; }
+    .welcome-header .text { font-size: 2.5rem; }
+}
+
+/* ================================================= */
+/* ============== DARK MODE THEME ================== */
+/* ================================================= */
+body.dark-mode { background-color: #121212; color: #e0e0e0; }
+body.dark-mode .welcome-header, body.dark-mode .auth-title { color: #ffffff; }
+body.dark-mode .auth-card { background: #1e1e1e; box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+body.dark-mode .form-control { background-color: #2a2a2a; color: #e0e0e0; border-color: #444; }
+body.dark-mode .form-control::placeholder { color: #888; }
+body.dark-mode .form-label, body.dark-mode .form-check-label, body.dark-mode p { color: #b0b0b0; }
+body.dark-mode .auth-link, body.dark-mode .login-options .forgot-password-link:hover { color: #34c759; }
+body.dark-mode .login-options .forgot-password-link { color: #888; }
+body.dark-mode .auth-flip-card-front { background-color: #2a2a2a; }
+body.dark-mode .auth-flip-card-front svg path { stroke: #e0e0e0; }
+body.dark-mode .night-mode-toggle { background-color: #2a2a2a; }
+body.dark-mode .night-mode-toggle i { color: #ffc107; }
+body.dark-mode .modal-content { background-color: #2a2a2a; color: #e0e0e0; }
+body.dark-mode .modal-header { border-bottom-color: #444; }
+body.dark-mode .modal-footer { border-top-color: #444; }
+body.dark-mode .btn-close { filter: invert(1) grayscale(100%) brightness(200%); }
+/*===================================================================================*/
+
+

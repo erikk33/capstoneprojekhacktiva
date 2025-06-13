@@ -35,6 +35,12 @@ Route::get('/email/verify', [VerificationController::class, 'notice'])->name('ve
 // Rute untuk menangani link verifikasi dari email
 Route::get('/verify/{token}', [VerificationController::class, 'verify'])->name('verification.verify');
 
+//rute untuk login masih tahap konfigurasi backend
+Route::view('/user/login','login');
+
+//rute testing halaman homepage user (MASIH PROSES PENGEMBANGAN)
+Route::view('/user/home','userMainPage.userHomePage');
+
 
 
 

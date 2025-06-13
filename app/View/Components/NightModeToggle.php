@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class googleFontMain extends Component
+class NightModeToggle extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class googleFontMain extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.googleFont.google-font-main');
+        return view('components.nightMode.night-mode-toggle');
     }
 }
