@@ -1,5 +1,5 @@
 /* ================================================= */
-/* ============= WELCOME HEADER (RESPONSIVE) ============= */
+/* ============= WELCOME HEADER (RESPONSIVE) userRegister.blade.php ============= */
 /* ================================================= */
 .register-wrapper {
     width: 100%;
@@ -286,6 +286,34 @@
 @media (min-width: 992px) {
     .register-form-section {
         padding: 3rem;
+    }
+    .register-title {
+        font-size: 2.5rem;
+    }
+    .register-flip-card {
+        width: 300px;
+        height: 300px;
+    }
+    .image-zoom-modal img {
+        width: 75vh;
+        height: 75vh;
+    }
+    /* PERUBAHAN: Ukuran Welcome Header untuk desktop */
+    .welcome-header .icon-img {
+        width: 50px;
+    }
+    .welcome-header .text {
+        font-size: 2.5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .register-form-section {
+        padding: 0;
+        padding-top: 0pt;
+        padding-bottom: 0rem;
+        top: 2px;
+
     }
     .register-title {
         font-size: 2.5rem;

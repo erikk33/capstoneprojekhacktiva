@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -227,6 +228,25 @@
             font-size: 0.9rem;
         }
 
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .view-btn {
+            background: var(--dark);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn:hover {
+            background: #1a1a1a;
+        }
+
         .slider-nav {
             display: flex;
             justify-content: center;
@@ -450,11 +470,111 @@
             font-size: 0.9rem;
         }
 
+        /* View Product Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 10px;
+            overflow: hidden;
+            animation: modalFadeIn 0.3s ease;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .modal-body {
+            display: flex;
+        }
+
+        .modal-img {
+            width: 50%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .modal-info {
+            width: 50%;
+            padding: 2rem;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .modal-price {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .modal-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
         /* Animations */
         @keyframes float {
-            0% { transform: translateY(-50%) translateX(0); }
-            50% { transform: translateY(-50%) translateX(-10px); }
-            100% { transform: translateY(-50%) translateX(0); }
+            0% {
+                transform: translateY(-50%) translateX(0);
+            }
+
+            50% {
+                transform: translateY(-50%) translateX(-10px);
+            }
+
+            100% {
+                transform: translateY(-50%) translateX(0);
+            }
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Responsive */
@@ -497,6 +617,19 @@
             .nav-links {
                 display: none;
             }
+
+            .modal-body {
+                flex-direction: column;
+            }
+
+            .modal-img {
+                width: 100%;
+                height: 300px;
+            }
+
+            .modal-info {
+                width: 100%;
+            }
         }
 
         @media (max-width: 576px) {
@@ -511,30 +644,18 @@
             .newsletter-btn {
                 padding: 0.8rem;
             }
+
+            .product-actions {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
-<body>
-    <nav>
-        <div class="logo">Erik's E-Commerce</div>
-        <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">Shop</a>
-            <a href="#">Collections</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-        </div>
-        <div class="cart-icon">Cart (0)</div>
-    </nav>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Elegant Design Meets Functionality</h1>
-            <p>Discover our curated collection of minimalist products designed to enhance your everyday life with simplicity and style.</p>
-            <button class="btn">Shop Collection</button>
-        </div>
-        <div class="hero-image"></div>
-    </section>
+<body>
+    <x-navigation-home-user />
+
+    <x-userHomePage.heroComponent />
 
     <section class="featured">
         <h2 class="section-title">Featured Products</h2>
@@ -543,41 +664,53 @@
                 <div class="product-slide">
                     <div class="product-card">
                         <div class="product-img">
-                            <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Product 1">
+                            <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                alt="Product 1">
                             <span class="product-tag">New</span>
                         </div>
                         <div class="product-info">
                             <h3 class="product-title">Minimalist Chair</h3>
                             <div class="product-price">$199.99</div>
                             <p class="product-desc">Sleek design with premium materials for ultimate comfort.</p>
-                            <button class="btn">Add to Cart</button>
+                            <div class="product-actions">
+                                <button class="view-btn" data-product-id="1">View Product</button>
+                                <button class="btn">Add to Cart</button>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="product-slide">
                     <div class="product-card">
                         <div class="product-img">
-                            <img src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Product 2">
+                            <img src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                alt="Product 2">
                             <span class="product-tag">Sale</span>
                         </div>
                         <div class="product-info">
                             <h3 class="product-title">Wireless Earbuds</h3>
                             <div class="product-price">$129.99</div>
                             <p class="product-desc">Crystal clear sound with noise cancellation technology.</p>
-                            <button class="btn">Add to Cart</button>
+                            <div class="product-actions">
+                                <button class="view-btn" data-product-id="2">View Product</button>
+                                <button class="btn">Add to Cart</button>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="product-slide">
                     <div class="product-card">
                         <div class="product-img">
-                            <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Product 3">
+                            <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                alt="Product 3">
                         </div>
                         <div class="product-info">
                             <h3 class="product-title">Sunglasses</h3>
                             <div class="product-price">$89.99</div>
                             <p class="product-desc">UV protection with lightweight polarized lenses.</p>
-                            <button class="btn">Add to Cart</button>
+                            <div class="product-actions">
+                                <button class="view-btn" data-product-id="3">View Product</button>
+                                <button class="btn">Add to Cart</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -602,28 +735,32 @@
         <h2 class="section-title">Shop by Category</h2>
         <div class="category-grid">
             <div class="category-card">
-                <img src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Furniture" class="category-img">
+                <img src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Furniture" class="category-img">
                 <div class="category-overlay">
                     <h3 class="category-title">Furniture</h3>
                     <p>25 items</p>
                 </div>
             </div>
             <div class="category-card">
-                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Electronics" class="category-img">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Electronics" class="category-img">
                 <div class="category-overlay">
                     <h3 class="category-title">Electronics</h3>
                     <p>42 items</p>
                 </div>
             </div>
             <div class="category-card">
-                <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Accessories" class="category-img">
+                <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Accessories" class="category-img">
                 <div class="category-overlay">
                     <h3 class="category-title">Accessories</h3>
                     <p>36 items</p>
                 </div>
             </div>
             <div class="category-card">
-                <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Lighting" class="category-img">
+                <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Lighting" class="category-img">
                 <div class="category-overlay">
                     <h3 class="category-title">Lighting</h3>
                     <p>18 items</p>
@@ -689,6 +826,24 @@
         </div>
     </footer>
 
+    <!-- View Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <img src="" alt="Product Image" class="modal-img">
+                <div class="modal-info">
+                    <h3 class="modal-title">Product Title</h3>
+                    <div class="modal-price">$0.00</div>
+                    <p class="modal-description">Product description goes here...</p>
+                    <div class="modal-actions">
+                        <button class="btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Product Slider
         const sliderContainer = document.querySelector('.slider-container');
@@ -721,6 +876,66 @@
             parallax.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
         });
 
+        // View Product Modal
+        const modal = document.getElementById('productModal');
+        const viewBtns = document.querySelectorAll('.view-btn');
+        const closeModal = document.querySelector('.close-modal');
+        const modalImg = document.querySelector('.modal-img');
+        const modalTitle = document.querySelector('.modal-title');
+        const modalPrice = document.querySelector('.modal-price');
+        const modalDesc = document.querySelector('.modal-description');
+
+        // Product data (in a real app, this would come from a database)
+        const products = {
+            1: {
+                title: "Minimalist Chair",
+                price: "$199.99",
+                description: "Sleek design with premium materials for ultimate comfort. Made with sustainably sourced wood and eco-friendly fabrics. Perfect for modern living rooms and offices.",
+                image: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+            },
+            2: {
+                title: "Wireless Earbuds",
+                price: "$129.99",
+                description: "Crystal clear sound with noise cancellation technology. Enjoy up to 20 hours of battery life with the charging case. Water and sweat resistant for workouts.",
+                image: "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+            },
+            3: {
+                title: "Sunglasses",
+                price: "$89.99",
+                description: "UV protection with lightweight polarized lenses. Made with durable acetate frames that are both stylish and comfortable. Perfect for sunny days and outdoor activities.",
+                image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+            }
+        };
+
+        viewBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product-id');
+                const product = products[productId];
+
+                if (product) {
+                    modalImg.src = product.image;
+                    modalTitle.textContent = product.title;
+                    modalPrice.textContent = product.price;
+                    modalDesc.textContent = product.description;
+
+                    modal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
         // Font Awesome fallback
         if (!document.querySelector('.fa')) {
             const style = document.createElement('style');
@@ -735,4 +950,5 @@
         }
     </script>
 </body>
+
 </html>

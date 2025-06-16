@@ -100,7 +100,7 @@
                                 <div class="dot-loader"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
                             </button>
                         </div>
-                        <p class="text-center mt-4">Sudah punya akun? <a href="#" class="register-link">Login disini</a></p>
+                        <p class="text-center mt-4">Sudah punya akun? <a href="{{ url('/login') }}" class="register-link">Login disini</a></p>
                     </form>
                 </div>
 

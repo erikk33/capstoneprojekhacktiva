@@ -92,7 +92,7 @@
                         </div>
 
                         <p class="text-center mt-4">
-                            Belum punya akun? <a href="{{-- route('register') --}}" class="auth-link">Register disini</a>
+                            Belum punya akun? <a href="{{ route('register') }}" class="auth-link">Register disini</a>
                         </p>
                     </form>
                 </div>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IdentificationController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\VerificationController;
 
@@ -36,10 +37,37 @@ Route::get('/email/verify', [VerificationController::class, 'notice'])->name('ve
 Route::get('/verify/{token}', [VerificationController::class, 'verify'])->name('verification.verify');
 
 //rute untuk login masih tahap konfigurasi backend
-Route::view('/user/login','login');
+// Rute untuk menampilkan halaman login
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 
-//rute testing halaman homepage user (MASIH PROSES PENGEMBANGAN)
-Route::view('/user/home','userMainPage.userHomePage');
+// Rute untuk memproses data login
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login.post');
+
+//  pengelompokan rute admin
+Route::middleware(['auth', 'admin'])->group(function () {
+
+    // Semua rute di dalam grup ini akan dilindungi.
+    // Hanya user dengan email 'erikxzc@gmail.com' yang bisa mengakses.
+    Route::get('/admin/dashboard', function () {
+        return view('adminMainPage.adminHomePage');
+    })->name('admin.dashboard');
+
+    // Route::get('/admin/products', [AdminProductController::class, 'index']);
+    // Route::get('/admin/users', [AdminUserController::class, 'index']);
+});
+
+//rute untuk pengguna biasa
+Route::middleware(['auth'])->group(function () {
+
+    //rute testing halaman homepage user (MASIH PROSES PENGEMBANGAN)
+Route::view('/user/home','userMainPage.userHomePage')->name('dashboard');
+
+});
+
+
+// Rute untuk proses logout
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
 
 
 
