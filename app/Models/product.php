@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Product extends Model
@@ -71,4 +72,10 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    // Di dalam model Product
+public function orderItems(): HasMany
+{
+    return $this->hasMany(OrderItem::class);
+}
 }

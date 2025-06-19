@@ -21,6 +21,7 @@
                         <th>Kategori</th>
                         <th>Harga</th>
                         <th>Stok</th>
+                        <th>Gambar</th> <!-- Kolom baru -->
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>

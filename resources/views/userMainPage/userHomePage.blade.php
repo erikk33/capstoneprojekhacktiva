@@ -28,57 +28,7 @@
         }
 
         /* Navigation */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 5%;
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--dark);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .cart-icon {
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
 
         /* Hero Section */
         .hero {
@@ -395,80 +345,7 @@
         }
 
         /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 3rem 5%;
-        }
 
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-col h3 {
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-
-        .footer-col h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background: var(--primary);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links a {
-            color: #ccc;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: white;
-            padding-left: 5px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .social-links a {
-            color: white;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            color: var(--secondary);
-        }
-
-        .copyright {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #444;
-            color: #aaa;
-            font-size: 0.9rem;
-        }
 
         /* View Product Modal */
         .modal {
@@ -614,9 +491,6 @@
                 order: 2;
             }
 
-            .nav-links {
-                display: none;
-            }
 
             .modal-body {
                 flex-direction: column;
@@ -649,79 +523,119 @@
                 flex-direction: column;
             }
         }
+        /* rekomendasi produk */
+
+        /* Di dalam tag style */
+.recommended {
+    padding: 5rem 5%;
+    background: var(--light);
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+     /* END OFF rekomendasi produk  */
+        /*Logout*/
+          /* Tambahkan style untuk nav-actions dan logout */
+
+
     </style>
 </head>
 
 <body>
+    <x-scroll-indicator/>
     <x-navigation-home-user />
 
+    @if(session('success'))
+    <div style="position: fixed; top: 80px; right: 20px; background: #27ae60; color: white; padding: 10px 20px; border-radius: 4px; z-index: 10000;">
+        {{ session('success') }}
+    </div>
+@endif
     <x-userHomePage.heroComponent />
 
     <section class="featured">
         <h2 class="section-title">Featured Products</h2>
         <div class="product-slider">
             <div class="slider-container">
+                @foreach ($featuredProducts as $product)
                 <div class="product-slide">
                     <div class="product-card">
                         <div class="product-img">
-                            <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                                alt="Product 1">
-                            <span class="product-tag">New</span>
+                            @if($product->image_path)
+                                <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}">
+                            @else
+                                <img src="https://via.placeholder.com/800" alt="Placeholder">
+                            @endif
+
+                            @if($loop->first)
+                                <span class="product-tag">New</span>
+                            @endif
                         </div>
                         <div class="product-info">
-                            <h3 class="product-title">Minimalist Chair</h3>
-                            <div class="product-price">$199.99</div>
-                            <p class="product-desc">Sleek design with premium materials for ultimate comfort.</p>
+                            <h3 class="product-title">{{ $product->name }}</h3>
+                            <div class="product-price">${{ number_format($product->price, 0) }}</div>
+                            <p class="product-desc">{{ Str::limit($product->description, 100) }}</p>
                             <div class="product-actions">
-                                <button class="view-btn" data-product-id="1">View Product</button>
-                                <button class="btn">Add to Cart</button>
+                                <button class="view-btn" data-product-id="{{ $product->id }}">View Product</button>
+                                <form action="{{ route('cart.add') }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button type="submit" class="btn">Add to Cart</button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="product-slide">
-                    <div class="product-card">
-                        <div class="product-img">
-                            <img src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                                alt="Product 2">
-                            <span class="product-tag">Sale</span>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-title">Wireless Earbuds</h3>
-                            <div class="product-price">$129.99</div>
-                            <p class="product-desc">Crystal clear sound with noise cancellation technology.</p>
-                            <div class="product-actions">
-                                <button class="view-btn" data-product-id="2">View Product</button>
-                                <button class="btn">Add to Cart</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-slide">
-                    <div class="product-card">
-                        <div class="product-img">
-                            <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                                alt="Product 3">
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-title">Sunglasses</h3>
-                            <div class="product-price">$89.99</div>
-                            <p class="product-desc">UV protection with lightweight polarized lenses.</p>
-                            <div class="product-actions">
-                                <button class="view-btn" data-product-id="3">View Product</button>
-                                <button class="btn">Add to Cart</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <div class="slider-nav">
-                <div class="slider-dot active" data-slide="0"></div>
-                <div class="slider-dot" data-slide="1"></div>
-                <div class="slider-dot" data-slide="2"></div>
+                @for ($i = 0; $i < count($featuredProducts); $i++)
+                    <div class="slider-dot {{ $i === 0 ? 'active' : '' }}" data-slide="{{ $i }}"></div>
+                @endfor
             </div>
         </div>
     </section>
+
+<!--Rekomendasi produk-->
+
+<!-- Setelah section featured -->
+@if($recommendedProducts->isNotEmpty())
+<section class="recommended">
+    <h2 class="section-title">Recommended For You</h2>
+    <div class="product-grid">
+        @foreach ($recommendedProducts as $product)
+        <div class="product-card">
+            <div class="product-img">
+                @if($product->image_path)
+                    <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}">
+                @else
+                    <img src="https://via.placeholder.com/800" alt="Placeholder">
+                @endif
+            </div>
+            <div class="product-info">
+                <h3 class="product-title">{{ $product->name }}</h3>
+                <div class="product-price">${{ number_format($product->price, 0) }}</div>
+                <p class="product-desc">{{ Str::limit($product->description, 100) }}</p>
+                <div class="product-actions">
+                    <button class="view-btn" data-product-id="{{ $product->id }}">View Product</button>
+                    <form action="{{ route('cart.add') }}" method="POST" style="display:inline;">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit" class="btn">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+</section>
+@endif
 
     <section class="parallax">
         <div class="parallax-content">
@@ -778,54 +692,7 @@
         </form>
     </section>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h3>Minimal</h3>
-                <p>Creating simple, functional products designed to enhance your everyday life.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-pinterest"></i></a>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h3>Shop</h3>
-                <ul class="footer-links">
-                    <li><a href="#">All Products</a></li>
-                    <li><a href="#">Featured</a></li>
-                    <li><a href="#">New Arrivals</a></li>
-                    <li><a href="#">Sale</a></li>
-                    <li><a href="#">Collections</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>About</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Our Story</a></li>
-                    <li><a href="#">Design Philosophy</a></li>
-                    <li><a href="#">Sustainability</a></li>
-                    <li><a href="#">Press</a></li>
-                    <li><a href="#">Careers</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Help</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">FAQs</a></li>
-                    <li><a href="#">Shipping</a></li>
-                    <li><a href="#">Returns</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="copyright">
-            &copy; 2023 Minimal. All rights reserved.
-        </div>
-    </footer>
-
+   <x-footeruser/>
     <!-- View Product Modal -->
     <div class="modal" id="productModal">
         <div class="modal-content">
@@ -846,16 +713,23 @@
 
     <script>
         // Product Slider
-        const sliderContainer = document.querySelector('.slider-container');
-        const slides = document.querySelectorAll('.product-slide');
-        const dots = document.querySelectorAll('.slider-dot');
-        let currentIndex = 0;
-        const slideWidth = slides[0].clientWidth;
+    const sliderContainer = document.querySelector('.slider-container');
+    const slides = document.querySelectorAll('.product-slide');
+    const dots = document.querySelectorAll('.slider-dot');
+
+    // Periksa apakah ada produk sebelum menginisialisasi slider
+    let currentIndex = 0;
+    let slideWidth = 0;
+
+    if (slides.length > 0) {
+        slideWidth = slides[0].clientWidth;
 
         function goToSlide(index) {
             sliderContainer.style.transform = `translateX(-${index * slideWidth}px)`;
             dots.forEach(dot => dot.classList.remove('active'));
-            dots[index].classList.add('active');
+            if (dots.length > index) {
+                dots[index].classList.add('active');
+            }
             currentIndex = index;
         }
 
@@ -863,91 +737,77 @@
             dot.addEventListener('click', () => goToSlide(index));
         });
 
-        // Auto slide
+        // Auto slide hanya jika ada produk
         setInterval(() => {
-            currentIndex = (currentIndex + 1) % slides.length;
-            goToSlide(currentIndex);
+            if (slides.length > 0) {
+                currentIndex = (currentIndex + 1) % slides.length;
+                goToSlide(currentIndex);
+            }
         }, 5000);
+    }
 
-        // Parallax effect
-        window.addEventListener('scroll', function() {
-            const parallax = document.querySelector('.parallax');
+    // Parallax effect
+    window.addEventListener('scroll', function() {
+        const parallax = document.querySelector('.parallax');
+        if (parallax) {
             const scrollPosition = window.pageYOffset;
             parallax.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
-        });
+        }
+    });
 
-        // View Product Modal
-        const modal = document.getElementById('productModal');
-        const viewBtns = document.querySelectorAll('.view-btn');
-        const closeModal = document.querySelector('.close-modal');
-        const modalImg = document.querySelector('.modal-img');
-        const modalTitle = document.querySelector('.modal-title');
-        const modalPrice = document.querySelector('.modal-price');
-        const modalDesc = document.querySelector('.modal-description');
+    // View Product Modal
+    const modal = document.getElementById('productModal');
+    const viewBtns = document.querySelectorAll('.view-btn');
+    const closeModal = document.querySelector('.close-modal');
+    const modalImg = document.querySelector('.modal-img');
+    const modalTitle = document.querySelector('.modal-title');
+    const modalPrice = document.querySelector('.modal-price');
+    const modalDesc = document.querySelector('.modal-description');
 
-        // Product data (in a real app, this would come from a database)
-        const products = {
-            1: {
-                title: "Minimalist Chair",
-                price: "$199.99",
-                description: "Sleek design with premium materials for ultimate comfort. Made with sustainably sourced wood and eco-friendly fabrics. Perfect for modern living rooms and offices.",
-                image: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-            },
-            2: {
-                title: "Wireless Earbuds",
-                price: "$129.99",
-                description: "Crystal clear sound with noise cancellation technology. Enjoy up to 20 hours of battery life with the charging case. Water and sweat resistant for workouts.",
-                image: "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-            },
-            3: {
-                title: "Sunglasses",
-                price: "$89.99",
-                description: "UV protection with lightweight polarized lenses. Made with durable acetate frames that are both stylish and comfortable. Perfect for sunny days and outdoor activities.",
-                image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    // Product data from server (dikirim dari controller)
+    const products = @json($productsForJs);
+
+    viewBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const productId = this.getAttribute('data-product-id');
+            const product = products[productId];
+
+            if (product) {
+                modalImg.src = product.image;
+                modalTitle.textContent = product.title;
+                modalPrice.textContent = product.price;
+                modalDesc.textContent = product.description;
+
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
             }
-        };
-
-        viewBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const productId = this.getAttribute('data-product-id');
-                const product = products[productId];
-
-                if (product) {
-                    modalImg.src = product.image;
-                    modalTitle.textContent = product.title;
-                    modalPrice.textContent = product.price;
-                    modalDesc.textContent = product.description;
-
-                    modal.style.display = 'flex';
-                    document.body.style.overflow = 'hidden';
-                }
-            });
         });
+    });
 
-        closeModal.addEventListener('click', () => {
+    closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-        });
-
-        // Font Awesome fallback
-        if (!document.querySelector('.fa')) {
-            const style = document.createElement('style');
-            style.innerHTML = `
-                .fa { font-family: 'Arial'; font-weight: bold; }
-                .fa-facebook::before { content: 'f'; }
-                .fa-twitter::before { content: 't'; }
-                .fa-instagram::before { content: 'ig'; }
-                .fa-pinterest::before { content: 'p'; }
-            `;
-            document.head.appendChild(style);
         }
+    });
+
+    // Font Awesome fallback
+    if (!document.querySelector('.fa')) {
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .fa { font-family: 'Arial'; font-weight: bold; }
+            .fa-facebook::before { content: 'f'; }
+            .fa-twitter::before { content: 't'; }
+            .fa-instagram::before { content: 'ig'; }
+            .fa-pinterest::before { content: 'p'; }
+        `;
+        document.head.appendChild(style);
+    }
     </script>
 </body>
 

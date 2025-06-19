@@ -18,6 +18,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
     'fontMain' => env('MAIN_FONT'),
+
+    'together_api',
     /*
     |--------------------------------------------------------------------------
     | Application Environment

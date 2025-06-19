@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Str;
 
 class UserInteraction extends Model
 {
@@ -19,20 +18,6 @@ class UserInteraction extends Model
         'product_id',
         'category_id'
     ];
-
-    /**
-     * Boot the model.
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            if (empty($model->id)) {
-                $model->id = Str::uuid()->toString();
-            }
-        });
-    }
 
     /**
      * Get the user that owns the interaction.
@@ -67,7 +52,6 @@ class UserInteraction extends Model
             'view' => 'Lihat Produk',
             'add_to_cart' => 'Tambah ke Keranjang',
             'purchase' => 'Pembelian',
-            'recommendation_shown' => 'Rekomendasi Ditampilkan',
             default => ucfirst(str_replace('_', ' ', $this->interaction_type)),
         };
     }
