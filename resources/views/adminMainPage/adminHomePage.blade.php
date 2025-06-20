@@ -832,6 +832,122 @@
     }
 
     /*==========================*/
+
+
+    /*dark mode styling and use component*/
+    /* Dark Mode Styles */
+.dark-mode body {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.dark-mode .header {
+    background: #1e1e1e;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .header-left h1 {
+    color: #e0e0e0;
+}
+
+.dark-mode .search-box input {
+    background: #2d2d2d;
+    border-color: #444;
+    color: #e0e0e0;
+}
+
+.dark-mode .search-box i {
+    color: #888;
+}
+
+.dark-mode .stat-card {
+    background: #1e1e1e;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .stat-title {
+    color: #aaa;
+}
+
+.dark-mode .stat-value {
+    color: #e0e0e0;
+}
+
+.dark-mode .chart-card,
+.dark-mode .table-card,
+.dark-mode .ai-section {
+    background: #1e1e1e;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .chart-title,
+.dark-mode .table-title,
+.dark-mode .ai-title {
+    color: #e0e0e0;
+}
+
+.dark-mode .chart-action {
+    background: #2d2d2d;
+    color: #aaa;
+}
+
+.dark-mode .chart-action:hover,
+.dark-mode .chart-action.active {
+    background: var(--primary);
+    color: white;
+}
+
+.dark-mode table thead {
+    background: #2d2d2d;
+}
+
+.dark-mode table th {
+    color: #aaa;
+}
+
+.dark-mode table td {
+    color: #e0e0e0;
+    border-bottom: 1px solid #333;
+}
+
+.dark-mode table tr:hover td {
+    background: #2d2d2d;
+}
+
+.dark-mode .ai-metrics,
+.dark-mode .ai-products {
+    background: #2d2d2d;
+    border: 1px solid #333;
+}
+
+.dark-mode .metric-label {
+    color: #aaa;
+}
+
+.dark-mode .metric-value {
+    color: #e0e0e0;
+}
+
+.dark-mode .ai-product {
+    border-bottom: 1px solid #333;
+}
+
+.dark-mode .action-btn {
+    background: #2d2d2d;
+    color: #aaa;
+}
+
+.dark-mode .action-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+
+/*status pesanan terbaru*/
+.status-cancelled {
+    background: #ffebee;
+    color: #c62828;
+}
 </style>
 
 <body>
@@ -857,18 +973,6 @@
             <div class="menu-item" data-page="users">
                 <i class="fas fa-users"></i>
                 <span class="menu-text">Pengguna</span>
-            </div>
-            <div class="menu-item">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="menu-text">Pesanan</span>
-            </div>
-            <div class="menu-item">
-                <i class="fas fa-chart-line"></i>
-                <span class="menu-text">Analitik AI</span>
-            </div>
-            <div class="menu-item">
-                <i class="fas fa-cog"></i>
-                <span class="menu-text">Pengaturan</span>
             </div>
         </div>
     </div>
@@ -897,233 +1001,139 @@
             <h1 class="page-title"><i class="fas fa-tachometer-alt"></i> Dashboard</h1>
 
             <!-- Stats Cards -->
-            <div class="stats-container">
-                <div class="stat-card sales">
-                    <div class="stat-icon">
-                        <i class="fas fa-dollar-sign"></i>
-                    </div>
-                    <div class="stat-title">Total Penjualan</div>
-                    <div class="stat-value">Rp 25.450.000</div>
-                    <div class="stat-change change-up">
-                        <i class="fas fa-arrow-up"></i> 12.5% dari bulan lalu
-                    </div>
-                </div>
-
-                <div class="stat-card orders">
-                    <div class="stat-icon">
-                        <i class="fas fa-shopping-cart"></i>
-                    </div>
-                    <div class="stat-title">Pesanan Baru</div>
-                    <div class="stat-value">42</div>
-                    <div class="stat-change change-up">
-                        <i class="fas fa-arrow-up"></i> 8.2% dari minggu lalu
-                    </div>
-                </div>
-
-                <div class="stat-card users">
-                    <div class="stat-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-title">Pengguna Baru</div>
-                    <div class="stat-value">28</div>
-                    <div class="stat-change change-up">
-                        <i class="fas fa-arrow-up"></i> 5.3% dari kemarin
-                    </div>
-                </div>
-
-                <div class="stat-card products">
-                    <div class="stat-icon">
-                        <i class="fas fa-box-open"></i>
-                    </div>
-                    <div class="stat-title">Produk Stok Rendah</div>
-                    <div class="stat-value">7</div>
-                    <div class="stat-change change-down">
-                        <i class="fas fa-arrow-down"></i> Perlu restok segera
-                    </div>
-                </div>
+            <!-- Stats Cards -->
+    <div class="stats-container">
+        <div class="stat-card sales">
+            <div class="stat-icon">
+                <i class="fas fa-dollar-sign"></i>
             </div>
-
-            <!-- Charts Row -->
-            <div class="charts-row">
-                <div class="chart-card">
-                    <div class="chart-header">
-                        <div class="chart-title">Statistik Penjualan (30 Hari Terakhir)</div>
-                        <div class="chart-actions">
-                            <div class="chart-action">Harian</div>
-                            <div class="chart-action active">Mingguan</div>
-                            <div class="chart-action">Bulanan</div>
-                        </div>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="salesChart"></canvas>
-                    </div>
-                </div>
-
-                <div class="chart-card">
-                    <div class="chart-header">
-                        <div class="chart-title">Distribusi Kategori Produk</div>
-                        <div class="chart-actions">
-                            <div class="chart-action active">2025</div>
-                        </div>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="categoryChart"></canvas>
-                    </div>
-                </div>
+            <div class="stat-title">Total Penjualan</div>
+            <div class="stat-value">Rp {{ number_format($totalSales, 0, ',', '.') }}</div>
+            <div class="stat-change change-up">
+                <i class="fas fa-arrow-up"></i> Bulan ini
             </div>
+        </div>
 
-            <!-- AI Recommendation Section -->
-            <div class="ai-section">
-                <div class="ai-header">
-                    <div class="ai-title">Sistem Rekomendasi AI</div>
-                    <div class="ai-controls">
-                        <label class="ai-toggle">
-                            <input type="checkbox" checked>
-                            <span class="ai-slider"></span>
-                        </label>
-                        <button class="btn btn-outline"><i class="fas fa-sync"></i> Refresh</button>
-                    </div>
-                </div>
-                <div class="ai-content">
-                    <div class="ai-metrics">
-                        <div class="ai-metric">
-                            <div class="metric-label">Akurasi Rekomendasi</div>
-                            <div class="metric-value">92.7%</div>
-                        </div>
-                        <div class="ai-metric">
-                            <div class="metric-label">Konversi Penjualan</div>
-                            <div class="metric-value">18.4%</div>
-                        </div>
-                        <div class="ai-metric">
-                            <div class="metric-label">Pengguna Aktif Harian</div>
-                            <div class="metric-value">1,248</div>
-                        </div>
-                        <div class="ai-metric">
-                            <div class="metric-label">Waktu Pemrosesan</div>
-                            <div class="metric-value">0.42 detik</div>
-                        </div>
-                    </div>
-                    <div class="ai-products">
-                        <h3>Produk Direkomendasikan AI</h3>
-                        <div class="ai-product">
-                            <div class="ai-product-img">
-                                <i class="fas fa-shoe-prints"></i>
-                            </div>
-                            <div class="ai-product-info">
-                                <div class="ai-product-name">Sepatu Lari X-Trail</div>
-                                <div class="ai-product-stats">+142% kenaikan klik | 78% konversi</div>
-                            </div>
-                        </div>
-                        <div class="ai-product">
-                            <div class="ai-product-img">
-                                <i class="fas fa-tshirt"></i>
-                            </div>
-                            <div class="ai-product-info">
-                                <div class="ai-product-name">Kaos Olahraga DryFit</div>
-                                <div class="ai-product-stats">+98% kenaikan klik | 65% konversi</div>
-                            </div>
-                        </div>
-                        <div class="ai-product">
-                            <div class="ai-product-img">
-                                <i class="fas fa-socks"></i>
-                            </div>
-                            <div class="ai-product-info">
-                                <div class="ai-product-name">Kaus Kaki Sport</div>
-                                <div class="ai-product-stats">+85% kenaikan klik | 72% konversi</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="stat-card orders">
+            <div class="stat-icon">
+                <i class="fas fa-shopping-cart"></i>
             </div>
+            <div class="stat-title">Pesanan Baru</div>
+            <div class="stat-value">{{ $newOrders }}</div>
+            <div class="stat-change change-up">
+                <i class="fas fa-arrow-up"></i> Hari ini
+            </div>
+        </div>
+
+        <div class="stat-card users">
+            <div class="stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-title">Pengguna Baru</div>
+            <div class="stat-value">{{ $newUsers }}</div>
+            <div class="stat-change change-up">
+                <i class="fas fa-arrow-up"></i> Hari ini
+            </div>
+        </div>
+
+        <div class="stat-card products">
+            <div class="stat-icon">
+                <i class="fas fa-box-open"></i>
+            </div>
+            <div class="stat-title">Produk Stok Rendah</div>
+            <div class="stat-value">{{ $lowStockProducts }}</div>
+            <div class="stat-change change-down">
+                <i class="fas fa-arrow-down"></i> Perlu restok segera
+            </div>
+        </div>
+    </div>
+
+        <!-- Charts Row -->
+<div class="charts-row">
+    <div class="chart-card">
+        <div class="chart-header">
+            <div class="chart-title">Statistik Penjualan (30 Hari Terakhir)</div>
+            <div class="chart-actions">
+                <div class="chart-action">Harian</div>
+                <div class="chart-action active">Mingguan</div>
+                <div class="chart-action">Bulanan</div>
+            </div>
+        </div>
+        <div class="chart-container">
+            <canvas id="salesChart"></canvas>
+        </div>
+    </div>
+
+    <div class="chart-card">
+        <div class="chart-header">
+            <div class="chart-title">Distribusi Kategori Produk</div>
+            <div class="chart-actions">
+                <div class="chart-action active">2025</div>
+            </div>
+        </div>
+        <div class="chart-container">
+            <canvas id="categoryChart"></canvas>
+        </div>
+    </div>
+</div>
+
+
 
             <!-- Products Table -->
-            <div class="table-card">
-                <div class="table-header">
-                    <div class="table-title">Produk Terlaris</div>
-                    <div class="table-actions">
-                        <button class="btn btn-primary" id="addProductBtn"><i class="fas fa-plus"></i> Tambah
-                            Produk</button>
-                        <button class="btn btn-outline"><i class="fas fa-filter"></i> Filter</button>
-                    </div>
-                </div>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Produk</th>
-                                <th>Kategori</th>
-                                <th>Harga</th>
-                                <th>Terjual</th>
-                                <th>Stok</th>
-                                <th>Rating</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Sepatu Lari X-Trail</td>
-                                <td>Sepatu Olahraga</td>
-                                <td>Rp 450.000</td>
-                                <td>142</td>
-                                <td>23</td>
-                                <td><i class="fas fa-star text-warning"></i> 4.8</td>
-                                <td>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Kaos Olahraga DryFit</td>
-                                <td>Pakaian</td>
-                                <td>Rp 120.000</td>
-                                <td>98</td>
-                                <td>15</td>
-                                <td><i class="fas fa-star text-warning"></i> 4.6</td>
-                                <td>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Sepatu Kasual Urban</td>
-                                <td>Sepatu Kasual</td>
-                                <td>Rp 350.000</td>
-                                <td>87</td>
-                                <td>7</td>
-                                <td><i class="fas fa-star text-warning"></i> 4.7</td>
-                                <td>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Tas Olahraga Multifungsi</td>
-                                <td>Aksesoris</td>
-                                <td>Rp 250.000</td>
-                                <td>76</td>
-                                <td>12</td>
-                                <td><i class="fas fa-star text-warning"></i> 4.5</td>
-                                <td>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Sepatu Basket Pro</td>
-                                <td>Sepatu Olahraga</td>
-                                <td>Rp 620.000</td>
-                                <td>65</td>
-                                <td>5</td>
-                                <td><i class="fas fa-star text-warning"></i> 4.9</td>
-                                <td>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <!-- Products Table -->
+<div class="table-card">
+    <div class="table-header">
+        <div class="table-title">Produk Terlaris</div>
+        <div class="table-actions">
+            <button class="btn btn-primary" id="addProductBtn"><i class="fas fa-plus"></i> Tambah
+                Produk</button>
+            <button class="btn btn-outline"><i class="fas fa-filter"></i> Filter</button>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Produk</th>
+                    <th>Kategori</th>
+                    <th>Harga</th>
+                    <th>Terjual</th>
+                    <th>Stok</th>
+                    <th>Rating</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($bestSellingProducts as $product)
+                <tr>
+                    <td>{{ $product->name }}</td>
+                    <td>{{ $product->category->name ?? '-' }}</td>
+                    <td>Rp {{ number_format($product->price, 0, ',', '.') }}</td>
+                    <td>{{ $product->total_sold ?? 0 }}</td>
+                    <td>{{ $product->stock }}</td>
+                    <td>
+                        <!-- Sementara kita beri rating statis 4.8 karena belum ada fitur rating -->
+                        <i class="fas fa-star text-warning"></i> 4.8
+                    </td>
+                    <td>
+                        <button class="action-btn edit-btn" data-id="{{ $product->id }}"
+                            data-name="{{ $product->name }}"
+                            data-category_id="{{ $product->category_id }}"
+                            data-price="{{ $product->price }}"
+                            data-stock="{{ $product->stock }}"
+                            data-description="{{ $product->description }}">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn delete-btn" data-id="{{ $product->id }}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
 
             <!-- Orders Table -->
             <div class="table-card">
@@ -1147,61 +1157,35 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($recentOrders as $order)
                             <tr>
-                                <td>#KMU-2025-00128</td>
-                                <td>Budi Santoso</td>
-                                <td>15 Jun 2025</td>
-                                <td>Rp 1.250.000</td>
-                                <td><span class="status status-processing">Processing</span></td>
+                                <td>#{{ $order->order_number }}</td>
+                                <td>{{ $order->user->fullName ?? 'Pelanggan' }}</td>
+                                <td>{{ $order->created_at->format('d M Y') }}</td>
+                                <td>Rp {{ number_format($order->total_amount, 0, ',', '.') }}</td>
+                                <td>
+                                    @php
+                                        $statusClass = '';
+                                        if ($order->status == 'pending') {
+                                            $statusClass = 'status-pending';
+                                        } elseif ($order->status == 'processing') {
+                                            $statusClass = 'status-processing';
+                                        } elseif ($order->status == 'shipped') {
+                                            $statusClass = 'status-shipped';
+                                        } elseif ($order->status == 'completed') {
+                                            $statusClass = 'status-completed';
+                                        } elseif ($order->status == 'cancelled') {
+                                            $statusClass = 'status-cancelled';
+                                        }
+                                    @endphp
+                                    <span class="status {{ $statusClass }}">{{ ucfirst($order->status) }}</span>
+                                </td>
                                 <td>
                                     <button class="action-btn"><i class="fas fa-eye"></i></button>
                                     <button class="action-btn"><i class="fas fa-edit"></i></button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>#KMU-2025-00127</td>
-                                <td>Ani Rahayu</td>
-                                <td>14 Jun 2025</td>
-                                <td>Rp 980.000</td>
-                                <td><span class="status status-pending">Pending</span></td>
-                                <td>
-                                    <button class="action-btn"><i class="fas fa-eye"></i></button>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#KMU-2025-00126</td>
-                                <td>Dewi Kurnia</td>
-                                <td>14 Jun 2025</td>
-                                <td>Rp 2.150.000</td>
-                                <td><span class="status status-shipped">Shipped</span></td>
-                                <td>
-                                    <button class="action-btn"><i class="fas fa-eye"></i></button>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#KMU-2025-00125</td>
-                                <td>Rudi Hermawan</td>
-                                <td>13 Jun 2025</td>
-                                <td>Rp 750.000</td>
-                                <td><span class="status status-completed">Completed</span></td>
-                                <td>
-                                    <button class="action-btn"><i class="fas fa-eye"></i></button>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#KMU-2025-00124</td>
-                                <td>Citra Wijaya</td>
-                                <td>12 Jun 2025</td>
-                                <td>Rp 1.620.000</td>
-                                <td><span class="status status-shipped">Shipped</span></td>
-                                <td>
-                                    <button class="action-btn"><i class="fas fa-eye"></i></button>
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                </td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -1424,7 +1408,7 @@
 
 
 
-
+    <x-adminComponent.darkmodeadmin/>
     <script>
         // Inisialisasi data produk
         const products = [{
@@ -1470,76 +1454,95 @@
         ];
 
         // Sales Chart
-        const salesCtx = document.getElementById('salesChart').getContext('2d');
-        const salesChart = new Chart(salesCtx, {
-            type: 'line',
-            data: {
-                labels: ['1 Jun', '5 Jun', '10 Jun', '15 Jun', '20 Jun', '25 Jun', '30 Jun'],
-                datasets: [{
-                    label: 'Pendapatan (juta Rp)',
-                    data: [3.2, 5.1, 4.7, 6.8, 7.5, 8.2, 9.1],
-                    borderColor: '#4361ee',
-                    backgroundColor: 'rgba(67, 97, 238, 0.1)',
-                    borderWidth: 3,
-                    pointBackgroundColor: '#4361ee',
-                    pointRadius: 5,
-                    tension: 0.3,
-                    fill: true
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    }
+    const salesCtx = document.getElementById('salesChart').getContext('2d');
+    const salesChart = new Chart(salesCtx, {
+        type: 'line',
+        data: {
+            labels: @json($salesLabels),
+            datasets: [{
+                label: 'Pendapatan (Rp)',
+                data: @json($salesValues),
+                borderColor: '#4361ee',
+                backgroundColor: 'rgba(67, 97, 238, 0.1)',
+                borderWidth: 3,
+                pointBackgroundColor: '#4361ee',
+                pointRadius: 5,
+                tension: 0.3,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            color: 'rgba(0, 0, 0, 0.05)'
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return 'Rp ' + context.raw.toLocaleString('id-ID');
                         }
                     }
                 }
-            }
-        });
-
-        // Category Chart
-        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-        const categoryChart = new Chart(categoryCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Sepatu Olahraga', 'Sepatu Kasual', 'Pakaian', 'Aksesoris', 'Lainnya'],
-                datasets: [{
-                    data: [35, 25, 20, 15, 5],
-                    backgroundColor: [
-                        '#4361ee',
-                        '#4cc9f0',
-                        '#f72585',
-                        '#3a0ca3',
-                        '#7209b7'
-                    ],
-                    borderWidth: 0
-                }]
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'right'
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    },
+                    ticks: {
+                        callback: function(value) {
+                            return 'Rp ' + value.toLocaleString('id-ID');
+                        }
                     }
                 },
-                cutout: '70%'
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
             }
-        });
+        }
+    });
+
+        // Category Chart
+    const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+    const categoryChart = new Chart(categoryCtx, {
+        type: 'doughnut',
+        data: {
+            labels: @json($categoryLabels),
+            datasets: [{
+                data: @json($categoryValues),
+                backgroundColor: [
+                    '#4361ee',
+                    '#4cc9f0',
+                    '#f72585',
+                    '#3a0ca3',
+                    '#7209b7',
+                    '#f8961e',
+                    '#43aa8b',
+                    '#577590'
+                ],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        boxWidth: 12,
+                        padding: 15
+                    }
+                }
+            },
+            cutout: '70%'
+        }
+    });
 
         // Menu item click event
         document.querySelectorAll('.menu-item').forEach(item => {
@@ -1567,6 +1570,14 @@
                 }
                 // Di dalam menu item click event
                 else if (page == 'users') {
+                    document.querySelector('.dashboard-content').style.display = 'none';
+                    document.querySelector('.products-content').style.display = 'none';
+                    document.querySelector('.kategori-content').style.display = 'none';
+                    document.querySelector('.users-content').style.display = 'block';
+                    document.querySelector('.header-left h1').textContent = 'Manajemen Pengguna';
+                }
+
+                else if (page == 'Manajemen Pengguna') {
                     document.querySelector('.dashboard-content').style.display = 'none';
                     document.querySelector('.products-content').style.display = 'none';
                     document.querySelector('.kategori-content').style.display = 'none';
@@ -1874,6 +1885,7 @@
             });
         });
     </script>
+
 </body>
 
 </html>

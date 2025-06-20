@@ -4,7 +4,7 @@
     </div>
     <div class="nav-links">
         <a href="{{ url('/user/home') }}">Home</a>
-        <a href="#">Shop</a>
+        <a href="{{ url('/user/shop') }}">Shop</a>
         <a href="{{ url('/user/about') }}">About</a>
         <a href="#">Contact</a>
     </div>

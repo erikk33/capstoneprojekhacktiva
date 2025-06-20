@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\IdentificationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\VerificationController;
@@ -9,6 +8,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\UserHomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\UserShopController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -83,6 +83,7 @@ Route::middleware(['auth'])->group(function () {
      Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
      Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
      Route::post('/cart/remove/{index}', [CartController::class, 'removeFromCart'])->name('cart.remove');
+     Route::get('/user/shop', [UserShopController::class, 'index'])->name('shop');
 
      // Checkout routes
      Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout');

@@ -219,8 +219,8 @@
 
         /* Parallax Section */
         .parallax {
-            height: 500px;
-            background: url('https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            height: 900px;
+            background: url('https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=755&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
             background-attachment: fixed;
             display: flex;
             align-items: center;
@@ -233,7 +233,7 @@
         .parallax::before {
             content: '';
             position: absolute;
-            top: 0;
+            top: 20;
             left: 0;
             width: 100%;
             height: 100%;

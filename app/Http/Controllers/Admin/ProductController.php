@@ -11,18 +11,81 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\DB;
+use App\Models\Order;
 class ProductController extends Controller
 {
-    public function showAdminPage()
-    {
-        $products = Product::with('category')->get();
-        $categori = Category::all();
-        $users = User::select('id', 'fullName', 'email', 'created_at')->get(); // Tambahkan ini
+  // Di dalam class ProductController
+  public function showAdminPage()
+  {
+      $products = Product::with('category')->get();
+      $categori = Category::all();
+      $users = User::select('id', 'fullName', 'email', 'created_at')->get();
 
-        return view('adminMainPage.adminHomePage', compact('products','categori', 'users'));
+      // Ambil produk terlaris
+      $bestSellingProducts = Product::select('products.*', DB::raw('SUM(order_items.quantity) as total_sold'))
+          ->leftJoin('order_items', 'products.id', '=', 'order_items.product_id')
+          ->groupBy('products.id')
+          ->orderByDesc('total_sold')
+          ->take(5)
+          ->get();
 
-    }
+    $recentOrders = Order::with('user')
+          ->latest()
+          ->take(5)
+          ->get();
+      // Hitung statistik baru
+      $totalSales = DB::table('orders')->sum('total_amount');
+      $newOrders = DB::table('orders')->whereDate('created_at', today())->count();
+      $newUsers = User::whereDate('created_at', today())->count();
+      $lowStockProducts = Product::where('stock', '<', 10)->count();
+
+      // Data untuk Sales Chart (30 hari terakhir)
+      $salesData = DB::table('orders')
+          ->select(DB::raw('DATE(created_at) as date'), DB::raw('SUM(total_amount) as total'))
+          ->where('created_at', '>=', now()->subDays(30))
+          ->groupBy('date')
+          ->orderBy('date')
+          ->get();
+
+      // Format data untuk chart
+      $salesLabels = [];
+      $salesValues = [];
+      foreach ($salesData as $data) {
+          $salesLabels[] = date('d M', strtotime($data->date));
+          $salesValues[] = $data->total;
+      }
+
+      // Data untuk Category Distribution Chart
+      $categoryData = DB::table('products')
+          ->join('categories', 'products.category_id', '=', 'categories.id')
+          ->select('categories.name', DB::raw('COUNT(products.id) as count'))
+          ->groupBy('categories.name')
+          ->get();
+
+      $categoryLabels = [];
+      $categoryValues = [];
+      foreach ($categoryData as $data) {
+          $categoryLabels[] = $data->name;
+          $categoryValues[] = $data->count;
+      }
+
+      return view('adminMainPage.adminHomePage', compact(
+          'products',
+          'categori',
+          'users',
+          'bestSellingProducts',
+          'totalSales',
+          'newOrders',
+          'newUsers',
+          'lowStockProducts',
+          'salesLabels',
+          'salesValues',
+          'categoryLabels',
+          'categoryValues',
+          'recentOrders' // tambahkan ini
+      ));
+  }
     /**
      * Menampilkan halaman manajemen produk dengan daftar produk.
      */
